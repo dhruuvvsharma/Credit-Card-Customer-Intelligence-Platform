@@ -1,0 +1,36 @@
+# Virtual environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# CatBoost logs
+catboost_info/
+
+# Build artifacts
+build/
+*.egg-info/
+
+# Raw/processed data (tracked by DVC instead)
+data/raw/*.csv
+data/processed/*.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
