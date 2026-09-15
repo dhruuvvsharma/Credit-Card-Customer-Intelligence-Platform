@@ -24,6 +24,9 @@ build/
 data/raw/*.csv
 data/processed/*.csv
 
+# Executable files
+*.exe
+
 # OS files
 .DS_Store
 Thumbs.db
