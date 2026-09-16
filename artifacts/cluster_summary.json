@@ -1,0 +1,57 @@
+{
+  "0": {
+    "customer_count": 1170,
+    "actual_churn_rate": 0.0299,
+    "avg_predicted_churn_probability": 0.0313,
+    "churn_rate_vs_overall": -0.1307,
+    "avg_behavior_features": {
+      "Total_Revolving_Bal": 1393.52,
+      "Avg_Utilization_Ratio": 0.16,
+      "Total_Trans_Ct": 103.22,
+      "Total_Trans_Amt": 12178.65,
+      "Contacts_Count_12_mon": 2.15
+    }
+  },
+  "1": {
+    "customer_count": 2382,
+    "actual_churn_rate": 0.1881,
+    "avg_predicted_churn_probability": 0.1897,
+    "churn_rate_vs_overall": 0.0274,
+    "avg_behavior_features": {
+      "Total_Revolving_Bal": 1675.05,
+      "Avg_Utilization_Ratio": 0.38,
+      "Total_Trans_Ct": 38.81,
+      "Total_Trans_Amt": 1788.67,
+      "Contacts_Count_12_mon": 2.67
+    }
+  },
+  "2": {
+    "customer_count": 3259,
+    "actual_churn_rate": 0.3234,
+    "avg_predicted_churn_probability": 0.3265,
+    "churn_rate_vs_overall": 0.1628,
+    "avg_behavior_features": {
+      "Total_Revolving_Bal": 248.11,
+      "Avg_Utilization_Ratio": 0.03,
+      "Total_Trans_Ct": 60.23,
+      "Total_Trans_Amt": 3506.34,
+      "Contacts_Count_12_mon": 2.67
+    }
+  },
+  "3": {
+    "customer_count": 3316,
+    "actual_churn_rate": 0.0271,
+    "avg_predicted_churn_probability": 0.0271,
+    "churn_rate_vs_overall": -0.1335,
+    "avg_behavior_features": {
+      "Total_Revolving_Bal": 1612.44,
+      "Avg_Utilization_Ratio": 0.48,
+      "Total_Trans_Ct": 74.59,
+      "Total_Trans_Amt": 4422.01,
+      "Contacts_Count_12_mon": 2.2
+    }
+  },
+  "_overall_churn_rate": 0.1607,
+  "_highest_risk_cluster": "2",
+  "_lowest_risk_cluster": "3"
+}
