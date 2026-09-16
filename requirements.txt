@@ -10,7 +10,9 @@ fastapi
 uvicorn
 jinja2
 python-dotenv
+python-multipart
 xgboost
 imbalanced-learn
 shap
 dvc-gdrive
+

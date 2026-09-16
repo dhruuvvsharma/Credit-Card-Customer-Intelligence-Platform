@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Customer Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <span class="mark">CCI</span>
+            <span class="topbar-title">Customer Intelligence Platform</span>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="panel form-panel">
+            <h1>Assess a customer</h1>
+            <p class="lede">Enter account details to get a segment assignment and churn risk estimate.</p>
+
+            <form method="post" action="/predict" id="predict-form">
+                <fieldset>
+                    <legend>Demographics</legend>
+                    <div class="field-row">
+                        <label>Age
+                            <input type="number" name="Customer_Age" min="18" max="100" placeholder="45" required>
+                        </label>
+                        <label>Dependents
+                            <input type="number" name="Dependent_count" min="0" max="10" placeholder="2" required>
+                        </label>
+                    </div>
+                    <div class="field-row">
+                        <label>Gender
+                            <select name="Gender" required>
+                                <option value="" disabled selected>Select gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </label>
+                        <label>Marital status
+                            <select name="Marital_Status" required>
+                                <option value="" disabled selected>Select status</option>
+                                <option value="Married">Married</option>
+                                <option value="Single">Single</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="field-row">
+                        <label>Education
+                            <select name="Education_Level" required>
+                                <option value="" disabled selected>Select education</option>
+                                <option value="Graduate">Graduate</option>
+                                <option value="High School">High School</option>
+                                <option value="Uneducated">Uneducated</option>
+                                <option value="College">College</option>
+                                <option value="Post-Graduate">Post-Graduate</option>
+                                <option value="Doctorate">Doctorate</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </label>
+                        <label>Income bracket
+                            <select name="Income_Category" required>
+                                <option value="" disabled selected>Select income</option>
+                                <option value="Less than $40K">Less than $40K</option>
+                                <option value="$40K - $60K">$40K – $60K</option>
+                                <option value="$60K - $80K">$60K – $80K</option>
+                                <option value="$80K - $120K">$80K – $120K</option>
+                                <option value="$120K +">$120K+</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Account</legend>
+                    <div class="field-row">
+                        <label>Card tier
+                            <select name="Card_Category" required>
+                                <option value="" disabled selected>Select tier</option>
+                                <option value="Blue">Blue</option>
+                                <option value="Silver">Silver</option>
+                                <option value="Gold">Gold</option>
+                                <option value="Platinum">Platinum</option>
+                            </select>
+                        </label>
+                        <label>Months on book
+                            <input type="number" name="Months_on_book" min="0" max="120" placeholder="36" required>
+                        </label>
+                    </div>
+                    <div class="field-row">
+                        <label>Relationship count
+                            <input type="number" name="Total_Relationship_Count" min="0" max="10" placeholder="4" required>
+                        </label>
+                        <label>Months inactive (12mo)
+                            <input type="number" name="Months_Inactive_12_mon" min="0" max="12" placeholder="2" required>
+                        </label>
+                    </div>
+                    <div class="field-row">
+                        <label>Contacts (12mo)
+                            <input type="number" name="Contacts_Count_12_mon" min="0" max="12" placeholder="3" required>
+                        </label>
+                        <label>Credit limit ($)
+                            <input type="number" step="0.01" name="Credit_Limit" min="0" placeholder="8000" required>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Behavior — last quarter</legend>
+                    <div class="field-row">
+                        <label>Revolving balance ($)
+                            <input type="number" step="0.01" name="Total_Revolving_Bal" min="0" placeholder="800" required>
+                        </label>
+                        <label>Open to buy ($)
+                            <input type="number" step="0.01" name="Avg_Open_To_Buy" min="0" placeholder="7200" required>
+                        </label>
+                    </div>
+                    <div class="field-row">
+                        <label>Transaction amount ($)
+                            <input type="number" step="0.01" name="Total_Trans_Amt" min="0" placeholder="3000" required>
+                        </label>
+                        <label>Transaction count
+                            <input type="number" name="Total_Trans_Ct" min="0" placeholder="50" required>
+                        </label>
+                    </div>
+                    <div class="field-row">
+                        <label>Amount change Q4/Q1
+                            <input type="number" step="0.001" name="Total_Amt_Chng_Q4_Q1" min="0" placeholder="0.7" required>
+                        </label>
+                        <label>Count change Q4/Q1
+                            <input type="number" step="0.001" name="Total_Ct_Chng_Q4_Q1" min="0" placeholder="0.6" required>
+                        </label>
+                    </div>
+                    <div class="field-row">
+                        <label>Avg utilization ratio
+                            <input type="number" step="0.001" min="0" max="1" name="Avg_Utilization_Ratio" placeholder="0.1" required>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="submit-btn">Run assessment</button>
+            </form>
+        </section>
+
+        <section class="panel result-panel">
+            {% if result and not result.error %}
+                <div class="result risk-{{ result.Risk_Label|lower }}">
+                    <div class="result-card-visual">
+                        <div class="card-top">
+                            <div class="card-chip"></div>
+                            <span class="card-network">CCI</span>
+                        </div>
+                        <div class="card-number">•••• •••• •••• {{ "%04d"|format((result.Churn_Probability * 10000)|int % 10000) }}</div>
+                        <div class="card-bottom">
+                            <div>
+                                <span class="card-mini-label">Churn probability</span>
+                                <span class="card-percentage">{{ "%.1f"|format(result.Churn_Probability * 100) }}%</span>
+                            </div>
+                            <div>
+                                <span class="card-mini-label">Segment</span>
+                                <span class="card-cluster">Cluster {{ result.Cluster_ID }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="risk-pill risk-pill-{{ result.Risk_Label|lower }}">{{ result.Risk_Label }} risk</span>
+                </div>
+            {% elif result and result.error %}
+                <div class="result result-error">
+                    <span class="result-eyebrow">Couldn't complete assessment</span>
+                    <p>{{ result.error }}</p>
+                </div>
+            {% else %}
+                <div class="result-empty">
+                    <span class="empty-mark">—</span>
+                    <p>Fill in the form and run an assessment to see the customer's segment and churn risk here.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

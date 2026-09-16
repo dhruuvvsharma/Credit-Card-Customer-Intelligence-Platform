@@ -114,32 +114,3 @@ class PredictionPipeline:
 
         except Exception as e:
             raise CustomException(e, sys)
-
-
-if __name__ == "__main__":
-    # Sample customer for a smoke test — realistic mid-range values
-    sample_customer = {
-        "Customer_Age": 45,
-        "Dependent_count": 3,
-        "Months_on_book": 36,
-        "Total_Relationship_Count": 4,
-        "Months_Inactive_12_mon": 2,
-        "Contacts_Count_12_mon": 3,
-        "Credit_Limit": 8000.0,
-        "Total_Revolving_Bal": 800,
-        "Avg_Open_To_Buy": 7200.0,
-        "Total_Amt_Chng_Q4_Q1": 0.7,
-        "Total_Trans_Amt": 3000,
-        "Total_Trans_Ct": 50,
-        "Total_Ct_Chng_Q4_Q1": 0.6,
-        "Avg_Utilization_Ratio": 0.1,
-        "Gender": "M",
-        "Education_Level": "Graduate",
-        "Marital_Status": "Married",
-        "Income_Category": "$60K - $80K",
-        "Card_Category": "Blue",
-    }
-
-    pipeline = PredictionPipeline()
-    result = pipeline.predict(sample_customer)
-    print(result)
