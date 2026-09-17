@@ -14,6 +14,7 @@ app = FastAPI(title="Credit Card Customer Intelligence Platform")
 app.mount("/static", StaticFiles(directory="fastapi_app/static"), name="static")
 templates = Jinja2Templates(directory="fastapi_app/templates")
 
+# Loaded once at startup, reused across requests
 prediction_pipeline = PredictionPipeline()
 
 
@@ -79,6 +80,7 @@ async def predict_form(request: Request):
         return templates.TemplateResponse(request, "index.html", {"result": error_result})
 
 
+# JSON API, for programmatic access (Power BI,testing,future frontend)
 @app.post("/api/predict")
 async def predict_api(customer: CustomerInput):
     try:

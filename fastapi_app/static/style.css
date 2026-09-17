@@ -470,3 +470,170 @@ input::placeholder {
 .result-error {
     color: var(--high);
 }
+
+/* Right column — result card + SHAP panel stacked */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 24px;
+}
+
+.result-panel {
+    position: static;
+    min-height: 320px;
+}
+
+.shap-panel {
+    padding: 26px;
+    animation: rise 0.5s var(--ease);
+}
+
+.shap-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: var(--text);
+}
+
+.shap-title span {
+    color: var(--text-dim);
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.shap-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.shap-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.shap-label {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.shap-bar-track {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.shap-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.6s var(--ease);
+}
+
+.shap-increases { background: linear-gradient(90deg, var(--red), #ff8a94); }
+.shap-decreases { background: linear-gradient(90deg, var(--teal), #6ff0dc); }
+
+.shap-sign {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+}
+
+.shap-sign-increases { color: var(--high); }
+.shap-sign-decreases { color: var(--low); }
+
+.shap-note {
+    margin: 18px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--card-border);
+    font-size: 12.5px;
+    color: var(--text-faint);
+    line-height: 1.5;
+}
+
+/* About accordion */
+.about-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 32px 40px;
+}
+
+.about-accordion {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 6px 24px;
+    backdrop-filter: blur(20px);
+}
+
+.about-accordion summary {
+    cursor: pointer;
+    padding: 16px 0;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.about-accordion summary::before {
+    content: "▸";
+    color: var(--purple-1);
+    font-size: 12px;
+    transition: transform 0.2s var(--ease);
+}
+
+.about-accordion[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.about-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 4px 0 22px;
+}
+
+@media (max-width: 700px) {
+    .about-body { grid-template-columns: 1fr; }
+}
+
+.about-item h3 {
+    font-size: 13px;
+    color: var(--purple-1);
+    margin: 0 0 6px;
+    font-weight: 600;
+}
+
+.about-item p {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.site-footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 20px 0 40px;
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 0.04em;
+}

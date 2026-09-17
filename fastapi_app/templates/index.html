@@ -148,41 +148,87 @@
             </form>
         </section>
 
-        <section class="panel result-panel">
-            {% if result and not result.error %}
-                <div class="result risk-{{ result.Risk_Label|lower }}">
-                    <div class="result-card-visual">
-                        <div class="card-top">
-                            <div class="card-chip"></div>
-                            <span class="card-network">CCI</span>
-                        </div>
-                        <div class="card-number">•••• •••• •••• {{ "%04d"|format((result.Churn_Probability * 10000)|int % 10000) }}</div>
-                        <div class="card-bottom">
-                            <div>
-                                <span class="card-mini-label">Churn probability</span>
-                                <span class="card-percentage">{{ "%.1f"|format(result.Churn_Probability * 100) }}%</span>
+        <div class="right-column">
+            <section class="panel result-panel">
+                {% if result and not result.error %}
+                    <div class="result risk-{{ result.Risk_Label|lower }}">
+                        <div class="result-card-visual">
+                            <div class="card-top">
+                                <div class="card-chip"></div>
+                                <span class="card-network">CCI</span>
                             </div>
-                            <div>
-                                <span class="card-mini-label">Segment</span>
-                                <span class="card-cluster">Cluster {{ result.Cluster_ID }}</span>
+                            <div class="card-number">•••• •••• •••• {{ "%04d"|format((result.Churn_Probability * 10000)|int % 10000) }}</div>
+                            <div class="card-bottom">
+                                <div>
+                                    <span class="card-mini-label">Churn probability</span>
+                                    <span class="card-percentage">{{ "%.1f"|format(result.Churn_Probability * 100) }}%</span>
+                                </div>
+                                <div>
+                                    <span class="card-mini-label">Segment</span>
+                                    <span class="card-cluster">Cluster {{ result.Cluster_ID }}</span>
+                                </div>
                             </div>
                         </div>
+                        <span class="risk-pill risk-pill-{{ result.Risk_Label|lower }}">{{ result.Risk_Label }} risk</span>
                     </div>
-                    <span class="risk-pill risk-pill-{{ result.Risk_Label|lower }}">{{ result.Risk_Label }} risk</span>
+                {% elif result and result.error %}
+                    <div class="result result-error">
+                        <span class="result-eyebrow">Couldn't complete assessment</span>
+                        <p>{{ result.error }}</p>
+                    </div>
+                {% else %}
+                    <div class="result-empty">
+                        <span class="empty-mark">—</span>
+                        <p>Fill in the form and run an assessment to see the customer's segment and churn risk here.</p>
+                    </div>
+                {% endif %}
+            </section>
+
+            {% if result and not result.error and result.Key_Factors %}
+            <section class="panel shap-panel">
+                <h2 class="shap-title">Why? <span>SHAP explanation</span></h2>
+                <div class="shap-bars">
+                    {% for factor in result.Key_Factors %}
+                    <div class="shap-row">
+                        <span class="shap-label">{{ factor.feature }}</span>
+                        <div class="shap-bar-track">
+                            <div class="shap-bar-fill shap-{{ factor.direction }}" style="width: {{ factor.relative_pct }}%"></div>
+                        </div>
+                        <span class="shap-sign shap-sign-{{ factor.direction }}">{{ "+" if factor.direction == "increases" else "−" }}</span>
+                    </div>
+                    {% endfor %}
                 </div>
-            {% elif result and result.error %}
-                <div class="result result-error">
-                    <span class="result-eyebrow">Couldn't complete assessment</span>
-                    <p>{{ result.error }}</p>
-                </div>
-            {% else %}
-                <div class="result-empty">
-                    <span class="empty-mark">—</span>
-                    <p>Fill in the form and run an assessment to see the customer's segment and churn risk here.</p>
-                </div>
+                <p class="shap-note">These features had the greatest influence on this specific prediction.</p>
+            </section>
             {% endif %}
-        </section>
+        </div>
     </main>
+
+    <section class="about-section">
+        <details class="about-accordion">
+            <summary>About &amp; how to use</summary>
+            <div class="about-body">
+                <div class="about-item">
+                    <h3>What this application does</h3>
+                    <p>Assigns a new credit card customer to a behavioral segment (via KMeans clustering) and estimates their probability of churning (via a trained XGBoost classifier), based on account and transaction data.</p>
+                </div>
+                <div class="about-item">
+                    <h3>How to use it</h3>
+                    <p>Fill in the customer's demographic, account, and last-quarter behavior details on the left, then click "Run assessment" to see their segment, churn risk, and the key factors behind that prediction.</p>
+                </div>
+                <div class="about-item">
+                    <h3>What SHAP means</h3>
+                    <p>SHAP (SHapley Additive exPlanations) breaks down a single prediction into each feature's individual contribution, showing which factors pushed the churn estimate up or down and by how much.</p>
+                </div>
+                <div class="about-item">
+                    <h3>Important note about predictions</h3>
+                    <p>This tool is trained on a public dataset for demonstration purposes. Predictions are estimates for a portfolio project, not a substitute for real risk assessment or financial advice.</p>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <footer class="site-footer">Credit Card Intelligence</footer>
 
     <script src="/static/script.js"></script>
 </body>
