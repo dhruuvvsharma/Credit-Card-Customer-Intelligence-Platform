@@ -191,10 +191,12 @@
                     {% for factor in result.Key_Factors %}
                     <div class="shap-row">
                         <span class="shap-label">{{ factor.feature }}</span>
-                        <div class="shap-bar-track">
-                            <div class="shap-bar-fill shap-{{ factor.direction }}" style="width: {{ factor.relative_pct }}%"></div>
+                        <div class="shap-bar-row">
+                            <div class="shap-bar-track">
+                                <div class="shap-bar-fill shap-{{ factor.direction }}" style="width: {{ factor.relative_pct }}%"></div>
+                            </div>
+                            <span class="shap-sign shap-sign-{{ factor.direction }}">{{ "+" if factor.direction == "increases" else "−" }}</span>
                         </div>
-                        <span class="shap-sign shap-sign-{{ factor.direction }}">{{ "+" if factor.direction == "increases" else "−" }}</span>
                     </div>
                     {% endfor %}
                 </div>

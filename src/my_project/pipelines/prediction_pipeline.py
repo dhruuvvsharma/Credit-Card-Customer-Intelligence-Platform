@@ -10,7 +10,6 @@ import shap
 from src.my_project.exceptions import CustomException
 from src.my_project.logger import logging
 
-
 @dataclass
 class PredictionPipelineConfig:
     kmeans_model_path: str = os.path.join("artifacts", "kmeans_model.pkl")
@@ -23,9 +22,7 @@ class PredictionPipelineConfig:
         "Total_Revolving_Bal", "Avg_Utilization_Ratio", "Total_Trans_Ct",
         "Total_Trans_Amt", "Contacts_Count_12_mon",
     )
-
     skewed_features: tuple = ("Total_Trans_Amt",)
-
 
     numeric_columns: tuple = (
         "Customer_Age", "Dependent_count", "Months_on_book",
@@ -39,14 +36,14 @@ class PredictionPipelineConfig:
         "Income_Category", "Card_Category", "Cluster_ID",
     )
 
-    # Risk bands for a readable label
+    # Risk bands for a human readable label alongside the raw probability
     high_risk_threshold: float = 0.5
     medium_risk_threshold: float = 0.2
 
-    # Raw feature name as human-readable label, for the SHAP output
-    # Categorical dummies 
-    
+    # Raw feature name---> human readable label, for the SHAP output.
+    # Categorical dummies (e.g. "categorical__Gender_M") 
     readable_names: dict = None
+
     def __post_init__(self):
         self.readable_names = {
             "numeric__Customer_Age": "Age",
@@ -67,17 +64,17 @@ class PredictionPipelineConfig:
 
 
 class PredictionPipeline:
-    """Takes a single new customer's raw feature values (as the FastAPI form/JSONwould supply) and returns:
+    """
+    Takes a single new customer's raw feature values (as the FastAPI form/JSON
+    would supply) and returns:
       1) Cluster_ID (which segment they fall into)
       2) Churn_Probability (from the trained classifier)
       3) Risk_Label (High / Medium / Low, for a readable UI result)
     """
 
-
     def __init__(self, config: PredictionPipelineConfig = PredictionPipelineConfig()):
         self.config = config
         self._load_artifacts()
-
 
     def _load_artifacts(self):
         try:
@@ -90,13 +87,13 @@ class PredictionPipeline:
             with open(self.config.classification_model_path, "rb") as f:
                 self.classification_model = pickle.load(f)
 
+
             self.explainer = shap.TreeExplainer(self.classification_model)
             self.feature_names = list(self.classification_preprocessor.get_feature_names_out())
 
             logging.info("Prediction pipeline artifacts loaded")
         except Exception as e:
             raise CustomException(e, sys)
-
 
     def _assign_cluster(self, input_df: pd.DataFrame) -> int:
         features = input_df[list(self.config.behavior_features)].copy()
@@ -122,19 +119,19 @@ class PredictionPipeline:
     def _readable_label(self, raw_name: str) -> str:
         if raw_name in self.config.readable_names:
             return self.config.readable_names[raw_name]
-
-        # Categorical dummy
+        # Categorical dummy, e.g. "categorical__Gender_M" or "categorical__Cluster_ID_2"
         if raw_name.startswith("categorical__"):
             stripped = raw_name.replace("categorical__", "")
             return stripped.replace("_", " ")
         return raw_name
 
     def _explain_prediction(self, X_transformed) -> list:
-        """Top 3 features driving this specific prediction from explainability.py (which summarizes the whole test set)"""
+        """Top 3 features driving this specific prediction, by SHAP value"""
+
         shap_values = self.explainer.shap_values(X_transformed)
         row = shap_values[0]
 
-        top_idx = np.argsort(np.abs(row))[::-1][:3]
+        top_idx = np.argsort(np.abs(row))[::-1][:4]
         max_impact = max(abs(row[i]) for i in top_idx) if len(top_idx) else 1.0
 
         factors = []
