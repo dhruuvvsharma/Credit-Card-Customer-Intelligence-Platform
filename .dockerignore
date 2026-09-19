@@ -1,0 +1,32 @@
+# Local environment
+venv/
+env/
+__pycache__/
+*.pyc
+.env
+
+# Version control / tooling metadata
+.git/
+.dvc/
+.dvcignore
+.gitignore
+
+# Notebooks, data, and PowerBI files not needed to serve predictions
+notebook/
+data/
+PowerBI/
+Screenshots/
+build/
+catboost_info/
+logs/
+
+# Artifacts not needed at serving time (only the 4 .pkl files, explicitly)
+# COPYed in Dockerfile.fastapi, are needed,everything else here is excluded so it never even reaches the build context)
+artifacts/*.csv
+artifacts/metrics/
+artifacts/pca.pkl
+artifacts/shap_values.pkl
+
+# IDE
+.vscode/
+.idea/
