@@ -21,7 +21,7 @@ Note: the live demo is hosted on Render's free tier, which sleeps after 15 minut
 
 **Power BI retention dashboard**
 
-[Power BI Dashboard](Screenshots/PowerBI%20.png)
+![Power BI Dashboard](Screenshots/PowerBI%20.png)
 
 ---
 
