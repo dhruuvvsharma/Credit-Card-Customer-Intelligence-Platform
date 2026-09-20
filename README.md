@@ -4,7 +4,9 @@ An end-to-end ML system that doesn't just predict credit card churn,
 It actually "segments customers" into behavioral groups, predicts who's likely to leave, explains *why* the model thinks so for every individual prediction, and connects the two together into an actionable retention story.A portfolio project to demonstrate the full pipeline a real data science team would ship: EDA + unsupervised learning + supervised learning + explainability, a live product, and a PowerBI dashboard, not just a notebook with an accuracy score at the end.
 
 **Live demo:** https://credit-card-customer-intelligence.onrender.com/
+
 **Full analysis notebook (Kaggle):** https://www.kaggle.com/dhruvloveskaggling
+
 **Source code:** https://github.com/dhruuvvsharma/Credit-Card-Customer-Intelligence-Platform
 
 Note: the live demo is hosted on Render's free tier, which sleeps after 15 minutes of inactivity. The first request after a period of inactivity can take 30–50 seconds to wake up 
@@ -19,7 +21,7 @@ Note: the live demo is hosted on Render's free tier, which sleeps after 15 minut
 
 **Power BI retention dashboard**
 
-![Power BI Dashboard](Screenshots/PowerBI_.png)
+[Power BI Dashboard](Screenshots/PowerBI%20.png)
 
 ---
 
